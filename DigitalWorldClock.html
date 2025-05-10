@@ -19,7 +19,7 @@
       align-items: center;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
+      animation: gradient 20s ease-in-out infinite;
       font-family: 'Rajdhani', sans-serif;
       overflow: hidden;
       color: #ffffff;
@@ -37,7 +37,7 @@
       text-align: center;
       min-width: 500px;
       position: relative;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -47,6 +47,7 @@
         0 0 80px rgba(0, 255, 255, 0.3),
         inset 0 0 40px rgba(0, 255, 255, 0.08),
         0 15px 30px rgba(0, 0, 0, 0.6);
+      transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .ora-container {
@@ -64,6 +65,7 @@
       gap: 8px;
       color: #ffffff;
       text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .ora:before {
@@ -74,6 +76,7 @@
       right: -30px;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+      transition: all 0.8s ease;
     }
 
     .ora:after {
@@ -84,6 +87,7 @@
       right: -30px;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+      transition: all 0.8s ease;
     }
 
     .digit {
@@ -91,28 +95,29 @@
       min-width: 65px;
       perspective: 1000px;
       position: relative;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .digit span {
       display: inline-block;
-      transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                 text-shadow 0.6s ease, 
-                 color 0.6s ease;
+      transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                 text-shadow 0.8s ease, 
+                 color 0.8s ease;
       transform-origin: center center;
       position: relative;
       backface-visibility: hidden;
     }
 
     .digit.flip span {
-      animation: flipNumber 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation: flipNumber 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
       color: #00ffff;
     }
 
     @keyframes flipNumber {
       0% { transform: perspective(400px) rotateX(0deg); opacity: 1; }
-      40% { transform: perspective(400px) rotateX(-20deg); }
-      60% { transform: perspective(400px) rotateX(25deg); }
-      80% { transform: perspective(400px) rotateX(-10deg); }
+      25% { transform: perspective(400px) rotateX(-25deg); }
+      50% { transform: perspective(400px) rotateX(20deg); }
+      75% { transform: perspective(400px) rotateX(-10deg); }
       100% { transform: perspective(400px) rotateX(0deg); opacity: 1; }
     }
 
@@ -120,12 +125,12 @@
       transform: scale(1.15) translateY(-5px);
       color: #00ffff;
       text-shadow: 0 0 20px rgba(0, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.6);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .colon {
       opacity: 1;
-      animation: blinkColon 2s infinite;
+      animation: blinkColon 3s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
     }
 
     @keyframes blinkColon {
@@ -140,6 +145,7 @@
       margin-top: 25px;
       position: relative;
       padding-top: 15px;
+      transition: all 0.5s ease;
     }
 
     .info-container:before {
@@ -151,6 +157,13 @@
       width: 40%;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .widget:hover .info-container:before {
+      width: 60%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .ziua, .data {
@@ -160,12 +173,24 @@
       color: rgba(255, 255, 255, 0.9);
       text-transform: uppercase;
       letter-spacing: 3px;
-      transition: all 0.3s ease;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .data {
       font-size: 20px;
       color: rgba(0, 255, 255, 0.8);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .ziua.changing, .data.changing {
+      animation: textChange 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes textChange {
+      0% { opacity: 1; transform: translateY(0); }
+      20% { opacity: 0; transform: translateY(-10px); }
+      80% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .location-info {
@@ -176,6 +201,17 @@
       margin-top: 15px;
       font-size: 16px;
       color: rgba(255, 255, 255, 0.7);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .location-info.changing {
+      animation: locationChange 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes locationChange {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     .location-icon {
@@ -187,6 +223,14 @@
       align-items: center;
       justify-content: center;
       font-size: 10px;
+      transition: all 0.5s ease;
+    }
+
+    .widget:hover .location-icon {
+      border-color: rgba(0, 255, 255, 0.8);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+      transform: scale(1.1);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     select {
@@ -205,7 +249,7 @@
       letter-spacing: 1px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       text-transform: uppercase;
       z-index: 10;
     }
@@ -214,12 +258,14 @@
       background: rgba(0, 255, 255, 0.2);
       box-shadow: 0 5px 20px rgba(0, 255, 255, 0.4);
       transform: translateY(-2px);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     select:focus {
       outline: none;
       background: rgba(0, 255, 255, 0.25);
       box-shadow: 0 5px 25px rgba(0, 255, 255, 0.5);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .semnatura {
@@ -230,11 +276,14 @@
       color: rgba(255, 255, 255, 0.5);
       font-weight: 500;
       letter-spacing: 1px;
-      transition: all 0.3s ease;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .semnatura:hover {
       color: rgba(0, 255, 255, 0.8);
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+      transform: translateY(-1px);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     @keyframes gradient {
@@ -248,10 +297,12 @@
       .widget {
         min-width: 320px;
         padding: 40px 30px;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       
       .ora {
         font-size: 60px;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       
       .digit {
@@ -286,7 +337,7 @@
     <div class="info-container">
       <div class="ziua" id="ziua"></div>
       <div class="data" id="data"></div>
-      <div class="location-info">
+      <div class="location-info" id="location-info">
         <span class="location-icon">📍</span>
         <span id="locationName">București</span>
       </div>
@@ -298,6 +349,8 @@
   <script>
     let zona = 'Europe/Bucharest';
     let oraVeche = '';
+    let ziuaVeche = '';
+    let dataVeche = '';
 
     function actualizeazaCeasul() {
       const acum = new Date();
@@ -340,8 +393,8 @@
               div.classList.add('flip');
               setTimeout(() => {
                 div.classList.remove('flip');
-              }, 800);
-            }, i * 80); 
+              }, 1200);
+            }, i * 100); 
           }
 
           div.appendChild(span);
@@ -352,20 +405,71 @@
       }
 
       const zi = new Intl.DateTimeFormat('ro-RO', { weekday: 'long', timeZone: zona }).format(acum);
-      document.getElementById('ziua').textContent = zi.charAt(0).toUpperCase() + zi.slice(1);
+      const ziFormatata = zi.charAt(0).toUpperCase() + zi.slice(1);
+      
+      if (ziuaVeche !== ziFormatata) {
+        const ziElement = document.getElementById('ziua');
+        ziElement.classList.add('changing');
+        
+        setTimeout(() => {
+          ziElement.textContent = ziFormatata;
+          ziuaVeche = ziFormatata;
+          
+          setTimeout(() => {
+            ziElement.classList.remove('changing');
+          }, 400);
+        }, 400);
+      }
 
       const data = new Intl.DateTimeFormat('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: zona }).format(acum);
-      document.getElementById('data').textContent = data;
+      
+      if (dataVeche !== data) {
+        const dataElement = document.getElementById('data');
+        dataElement.classList.add('changing');
+        
+        setTimeout(() => {
+          dataElement.textContent = data;
+          dataVeche = data;
+          
+          setTimeout(() => {
+            dataElement.classList.remove('changing');
+          }, 400);
+        }, 400);
+      }
     }
 
     document.getElementById('fusSelect').addEventListener('change', (e) => {
       zona = e.target.value;
-      document.getElementById('locationName').textContent = e.target.options[e.target.selectedIndex].text;
-      actualizeazaCeasul();
+      const locationElement = document.getElementById('location-info');
+      locationElement.classList.add('changing');
+      
+      setTimeout(() => {
+        document.getElementById('locationName').textContent = e.target.options[e.target.selectedIndex].text;
+        actualizeazaCeasul();
+        
+        setTimeout(() => {
+          locationElement.classList.remove('changing');
+        }, 400);
+      }, 400);
+      
+      ziuaVeche = '';
+      dataVeche = '';
     });
 
     actualizeazaCeasul();
     setInterval(actualizeazaCeasul, 1000);
+    
+    setTimeout(() => {
+      const digits = document.querySelectorAll('.digit:not(.colon)');
+      digits.forEach((digit, index) => {
+        setTimeout(() => {
+          digit.classList.add('flip');
+          setTimeout(() => {
+            digit.classList.remove('flip');
+          }, 1200);
+        }, index * 100);
+      });
+    }, 500);
   </script>
 </body>
 </html>
