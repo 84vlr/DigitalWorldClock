@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ceas Digital Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      font-family: 'Rajdhani', sans-serif;
+      overflow: hidden;
+      color: #ffffff;
+    }
+
+    .widget {
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 30px;
+      padding: 70px 70px;
+      box-shadow: 
+        0 0 60px rgba(0, 255, 255, 0.2),
+        inset 0 0 30px rgba(0, 255, 255, 0.05),
+        0 10px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(20px);
+      text-align: center;
+      min-width: 500px;
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .widget:hover {
+      transform: scale(1.03);
+      box-shadow: 
+        0 0 80px rgba(0, 255, 255, 0.3),
+        inset 0 0 40px rgba(0, 255, 255, 0.08),
+        0 15px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .ora-container {
+      position: relative;
+      margin: 30px 0 40px;
+    }
+
+    .ora {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 96px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      color: #ffffff;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+    }
+
+    .ora:before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -30px;
+      right: -30px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+    }
+
+    .ora:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: -30px;
+      right: -30px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+    }
+
+    .digit {
+      display: inline-block;
+      min-width: 65px;
+      perspective: 1000px;
+      position: relative;
+    }
+
+    .digit span {
+      display: inline-block;
+      transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                 text-shadow 0.6s ease, 
+                 color 0.6s ease;
+      transform-origin: center center;
+      position: relative;
+      backface-visibility: hidden;
+    }
+
+    .digit.flip span {
+      animation: flipNumber 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      color: #00ffff;
+    }
+
+    @keyframes flipNumber {
+      0% { transform: perspective(400px) rotateX(0deg); opacity: 1; }
+      40% { transform: perspective(400px) rotateX(-20deg); }
+      60% { transform: perspective(400px) rotateX(25deg); }
+      80% { transform: perspective(400px) rotateX(-10deg); }
+      100% { transform: perspective(400px) rotateX(0deg); opacity: 1; }
+    }
+
+    .digit:hover span {
+      transform: scale(1.15) translateY(-5px);
+      color: #00ffff;
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.6);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .colon {
+      opacity: 1;
+      animation: blinkColon 2s infinite;
+    }
+
+    @keyframes blinkColon {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .info-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 25px;
+      position: relative;
+      padding-top: 15px;
+    }
+
+    .info-container:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+    }
+
+    .ziua, .data {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .data {
+      font-size: 20px;
+      color: rgba(0, 255, 255, 0.8);
+    }
+
+    .location-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .location-icon {
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(0, 255, 255, 0.5);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    select {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      padding: 12px 20px;
+      border-radius: 20px;
+      background: rgba(0, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      cursor: pointer;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+
+    select:hover {
+      background: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 5px 20px rgba(0, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    select:focus {
+      outline: none;
+      background: rgba(0, 255, 255, 0.25);
+      box-shadow: 0 5px 25px rgba(0, 255, 255, 0.5);
+    }
+
+    .semnatura {
+      position: absolute;
+      bottom: 15px;
+      right: 20px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .semnatura:hover {
+      color: rgba(0, 255, 255, 0.8);
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Responsive design */
+    @media (max-width: 600px) {
+      .widget {
+        min-width: 320px;
+        padding: 40px 30px;
+      }
+      
+      .ora {
+        font-size: 60px;
+      }
+      
+      .digit {
+        min-width: 40px;
+      }
+      
+      .ziua, .data {
+        font-size: 20px;
+      }
+      
+      select {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <select id="fusSelect">
+      <option value="Europe/Bucharest">București</option>
+      <option value="Europe/London">Londra</option>
+      <option value="America/New_York">New York</option>
+      <option value="Asia/Tokyo">Tokyo</option>
+      <option value="Australia/Sydney">Sydney</option>
+    </select>
+    
+    <div class="ora-container">
+      <div class="ora" id="ora"></div>
+    </div>
+    
+    <div class="info-container">
+      <div class="ziua" id="ziua"></div>
+      <div class="data" id="data"></div>
+      <div class="location-info">
+        <span class="location-icon">📍</span>
+        <span id="locationName">București</span>
+      </div>
+    </div>
+    
+    <div class="semnatura">Made by 84</div>
+  </div>
+
+  <script>
+    let zona = 'Europe/Bucharest';
+    let oraVeche = '';
+
+    function actualizeazaCeasul() {
+      const acum = new Date();
+      const opt = { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: zona, hour12: false };
+      const formatter = new Intl.DateTimeFormat('ro-RO', opt);
+      const parti = formatter.formatToParts(acum);
+      
+      const ora = parti.find(p => p.type === 'hour').value.padStart(2, '0');
+      const minut = parti.find(p => p.type === 'minute').value.padStart(2, '0');
+      const secunda = parti.find(p => p.type === 'second').value.padStart(2, '0');
+      
+      const oraCurenta = [
+        ora[0], ora[1], ":", minut[0], minut[1], ":", secunda[0], secunda[1]
+      ].join('');
+
+      const container = document.getElementById('ora');
+      
+      if (!oraVeche) {
+        oraVeche = oraCurenta;
+      }
+      
+      if (oraCurenta !== oraVeche) {
+        container.innerHTML = '';
+        
+        for (let i = 0; i < oraCurenta.length; i++) {
+          const caracter = oraCurenta[i];
+          const div = document.createElement('div');
+          
+          if (caracter === ':') {
+            div.className = 'digit colon';
+          } else {
+            div.className = 'digit';
+          }
+          
+          const span = document.createElement('span');
+          span.textContent = caracter;
+
+          if (oraVeche[i] !== caracter && oraVeche[i] !== undefined) {
+            setTimeout(() => {
+              div.classList.add('flip');
+              setTimeout(() => {
+                div.classList.remove('flip');
+              }, 800);
+            }, i * 80); 
+          }
+
+          div.appendChild(span);
+          container.appendChild(div);
+        }
+        
+        oraVeche = oraCurenta;
+      }
+
+      const zi = new Intl.DateTimeFormat('ro-RO', { weekday: 'long', timeZone: zona }).format(acum);
+      document.getElementById('ziua').textContent = zi.charAt(0).toUpperCase() + zi.slice(1);
+
+      const data = new Intl.DateTimeFormat('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: zona }).format(acum);
+      document.getElementById('data').textContent = data;
+    }
+
+    document.getElementById('fusSelect').addEventListener('change', (e) => {
+      zona = e.target.value;
+      document.getElementById('locationName').textContent = e.target.options[e.target.selectedIndex].text;
+      actualizeazaCeasul();
+    });
+
+    actualizeazaCeasul();
+    setInterval(actualizeazaCeasul, 1000);
+  </script>
+</body>
+</html>
